@@ -1,0 +1,50 @@
+@font-face
+{
+	font-family: KidZone;
+	src: url(KidZone.ttf);
+}
+
+body
+{
+	margin: 0;
+	padding: 20px;
+	transition: 1s;
+}
+div
+{
+	background-color: #56C;
+	border-radius: 50%;
+	box-shadow: 1px 1px 40px rgba(0,0,0,.5);
+	color: white;
+	cursor: pointer;
+	display: inline-grid;
+	font-family: KidZone;
+	font-size: 36px;
+	height: 150px;
+	margin: 40px;
+	padding: 26px;
+	text-align: center;
+	width: 150px;
+    grid-template-rows: repeat(3,1fr);
+    grid-template-columns: repeat(3, 1fr);
+}
+div:active
+{
+	box-shadow: 1px 1px 40px rgba(255,255,0,.3);
+    top: 3px;
+}
+div p
+{
+    grid-column: 2;
+    grid-row: 2;
+}
+audio
+{
+	background-color: white;
+	bottom: 0;
+	left: 0;
+	margin: 0;
+	position: fixed;
+	width: 100%;
+	z-index: 1;
+}
