@@ -1,71 +1,35 @@
-let audio = document.getElementById("audio")
+const audio = document.getElementById("audio")
 
-console.log(audio.src)
-
-let cambiar = () => audio.src = "audio/TB1.mp3"
-
-document.onkeypress = e => e.keyCode === 13 ? (cambiar(), console.log("cambia")) : console.error(err)
-
-let programas = [	
-	["0", "Poder<br>Jóven<br>Radio", "#459", "PJR.mp3"],
-	["1", "Traba<br>lenguas<br>Primaria", "#956", "TB1.mp3"],
-	["2", "Caja Mágica!!", "#118", "CJM.mp3"],
-	["3", "Entrevista<br>Fabry", "#546", "EFabry.mp3"],
-	["4", "Traba<br>lenguas<br>Secundaria", "brown", "TB2.mp3"],
-	["5", "Caja Misteriosa &#191;&#63;", "#191", "CJM1.mp3"]
+const programas = [	
+	["Poder<br>Jóven<br>Radio", "#459", "PJR.mp3"],
+	["Traba<br>lenguas<br>Primaria", "#956", "TB1.mp3"],
+	["Caja Mágica!!", "#118", "CJM.mp3"],
+	["Entrevista<br>Fabry", "#546", "EFabry.mp3"],
+	["Traba<br>lenguas<br>Secundaria", "brown", "TB2.mp3"],
+	["Caja Misteriosa &#191;&#63;", "#191", "CJM1.mp3"]
 ]
 
 for (i = 0; i < programas.length; ++i) {
-
-	let id = programas[i][0];
-	let nombre = programas[i][1];
-
-	document.body.innerHTML += `<div id="${id}"><span style="grid-column: 2; grid-row: 2;">${nombre}</span></div>`
+	
+	let nombre = programas[i][0];
+	
+	document.body.innerHTML += `<div onclick="cambiarColorSong(${i})"><span>${nombre}</span></div>`
 }
 
-/*
-$(function() {
+document.onkeypress = e => e.keyCode === 32 && audio.play ? (audio.paused, console.log(audio.src)) : audio.play
 
-	var audio = $('audio')[0];
+let cambiarColorSong = i => (
+	document.body.style.backgroundColor = programas[i][1],
+	document.getElementsByTagName("div")[i].style.backgroundColor = getRandomColor(),
+	audio.src = "audio/"+programas[i][2],
+	audio.load
+)
 
-	$('audio').attr("src", 'audio/intro.mp3');
-	audio.play();
-
-	var programas = [	
-		["0", "Poder<br>Jóven<br>Radio", "#459", "PJR.mp3"],
-		["1", "Traba<br>lenguas<br>Primaria", "#956", "TB1.mp3"],
-		["2", "Caja Mágica!!", "#118", "CJM.mp3"],
-		["3", "Entrevista<br>Fabry", "#546", "EFabry.mp3"],
-		["4", "Traba<br>lenguas<br>Secundaria", "brown", "TB2.mp3"],
-		["5", "Caja Misteriosa &#191;&#63;", "#191", "CJM1.mp3"]
-	];
-
-	for (i = 0; i < programas.length; ++i) {
-
-		var id = programas[i][0];
-		var nombre = programas[i][1];
-
-		$("body").append('<div id="'+id+'"><span style="grid-column: 2; grid-row: 2;">'+nombre+'</span></div>');
+function getRandomColor() {
+	var letters = '0123456789ABCDEF';
+	var color = '#';
+	for (var i = 0; i < 6; i++) {
+	  color += letters[Math.floor(Math.random() * 12)];
 	}
-
-	$('body').keyup(function(e) {
-		if(e.keyCode == 32){
-			if(audio.paused) audio.play(); else audio.pause();
-		}
-	});
-
-	$("div").click(function() {
-
-		var id = $(this).attr('id');
-		var sty = programas[id][2];
-		var song = programas[id][3];
-
-		$('body').css("background-color", sty);
-		$('div').css("background-color", sty);
-
-		$('audio').attr("src", 'audio/'+song);
-		audio.play();
-
-	});
-});
-*/
+	return color;
+}
