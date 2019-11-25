@@ -43,6 +43,9 @@ audio {
 	margin: 0;
 	position: fixed;
 	width: 100vw;
-	width: 100%;
 	z-index: 1;
+}
+source {
+	margin: 0;
+	padding: 0;
 }

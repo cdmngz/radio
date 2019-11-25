@@ -1,35 +1,44 @@
-const audio = document.getElementById("audio")
+$(function() {
 
-const programas = [	
-	["Poder<br>Jóven<br>Radio", "#459", "PJR.mp3"],
-	["Traba<br>lenguas<br>Primaria", "#956", "TB1.mp3"],
-	["Caja Mágica!!", "#118", "CJM.mp3"],
-	["Entrevista<br>Fabry", "#546", "EFabry.mp3"],
-	["Traba<br>lenguas<br>Secundaria", "brown", "TB2.mp3"],
-	["Caja Misteriosa &#191;&#63;", "#191", "CJM1.mp3"]
-]
+	var audio = $('audio')[0];
 
-for (i = 0; i < programas.length; ++i) {
-	
-	let nombre = programas[i][0];
-	
-	document.body.innerHTML += `<div onclick="cambiarColorSong(${i})"><span>${nombre}</span></div>`
-}
+	$('audio').attr("src", 'audio/intro.mp3');
+	audio.play();
 
-document.onkeypress = e => e.keyCode === 32 && audio.play ? (audio.paused, console.log(audio.src)) : audio.play
+	var programas = [	
+		["0", "Poder<br>Jóven<br>Radio", "#459", "PJR.mp3"],
+		["1", "Traba<br>lenguas<br>Primaria", "#956", "TB1.mp3"],
+		["2", "Caja Mágica!!", "#118", "CJM.mp3"],
+		["3", "Entrevista<br>Fabry", "#546", "EFabry.mp3"],
+		["4", "Traba<br>lenguas<br>Secundaria", "brown", "TB2.mp3"],
+		["5", "Caja Misteriosa &#191;&#63;", "#191", "CJM1.mp3"]
+	];
 
-let cambiarColorSong = i => (
-	document.body.style.backgroundColor = programas[i][1],
-	document.getElementsByTagName("div")[i].style.backgroundColor = getRandomColor(),
-	audio.src = "audio/"+programas[i][2],
-	audio.load
-)
+	for (i = 0; i < programas.length; ++i) {
 
-function getRandomColor() {
-	var letters = '0123456789ABCDEF';
-	var color = '#';
-	for (var i = 0; i < 6; i++) {
-	  color += letters[Math.floor(Math.random() * 12)];
+		var id = programas[i][0];
+		var nombre = programas[i][1];
+
+    	$("body").append('<div id="'+id+'"><span style="grid-column: 2; grid-row: 2;">'+nombre+'</span></div>');
 	}
-	return color;
-}
+
+	$('body').keyup(function(e) {
+		if(e.keyCode == 32){
+			if(audio.paused) audio.play(); else audio.pause();
+		}
+	});
+
+	$("div").click(function() {
+
+		var id = $(this).attr('id');
+		var sty = programas[id][2];
+		var song = programas[id][3];
+
+		$('body').css("background-color", sty);
+		$('div').css("background-color", sty);
+
+		$('audio').attr("src", 'audio/'+song);
+		audio.play();
+
+	});
+});
